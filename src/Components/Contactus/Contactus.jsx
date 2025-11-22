@@ -308,7 +308,7 @@ const ContactSection = () => {
 
               <div className="grid sm:grid-cols-2 gap-3 mb-4">
                 <a
-                  href="mailto:Info@futurewesecure.com"
+                  href="mailto:INFO@FUTUREPLANHELP.COM"
                   className="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 transition text-white"
                   style={{
                     background: "rgba(255,255,255,0.04)",
@@ -320,7 +320,7 @@ const ContactSection = () => {
                 </a>
 
                 <a
-                  href="tel:+1516-917-0756"
+                  href="tel:+1267-225-1909"
                   className="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 transition text-white"
                   style={{
                     background: "rgba(255,255,255,0.04)",
@@ -333,7 +333,7 @@ const ContactSection = () => {
               </div>
 
               <a
-                href="https://api.whatsapp.com/send?phone=15165818909&text=Hello!"
+                href="https://api.whatsapp.com/send?phone=12053657952&text=Hello!"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full inline-flex items-center justify-center gap-3 rounded-xl px-4 py-3 text-white font-semibold mb-3"
@@ -396,13 +396,10 @@ const ContactSection = () => {
                 <h4 className="text-lg font-bold" style={{ color: "white" }}>
                   Future Plan Help
                 </h4>
-                <p className="text-white/90 mb-3">📞 516-917-0756</p>
-                <p className="text-white/90">📧 Info@futurewesecure.com</p>
+                <p className="text-white/90 mb-3">📞 267-225-1909</p>
+                <p className="text-white/90">📧 INFO@FUTUREPLANHELP.COM</p>
 
-                <div className="flex items-center gap-2 mt-3 text-white/80">
-                  <MapPin size={16} />
-                  <span>Mount Airy, MD</span>
-                </div>
+               
               </div>
             </div>
 

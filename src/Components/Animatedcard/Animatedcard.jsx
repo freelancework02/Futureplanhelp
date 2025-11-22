@@ -108,7 +108,7 @@ export default function Home() {
               onClick={(e) => {
                 e.preventDefault();
                 window.Calendly?.initPopupWidget?.({
-                  url: "https://calendly.com/futurewesecure-info/30min",
+                  url: "https://calendly.com/jigneshcc2905/30min",
                 });
               }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold"
@@ -278,7 +278,7 @@ export default function Home() {
               onClick={(e) => {
                 e.preventDefault();
                 window.Calendly?.initPopupWidget?.({
-                  url: "https://calendly.com/futurewesecure-info/30min",
+                  url: "https://calendly.com/jigneshcc2905/30min",
                 });
               }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold"

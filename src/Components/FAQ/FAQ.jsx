@@ -340,11 +340,11 @@ export default function FoundationalCommitmentsVariantA() {
                 <div className="text-sm" style={{ color: TEXT }}>
                   Still have questions? Email{" "}
                   <a
-                    href="mailto:Info@futurewesecure.com"
+                    href="mailto:INFO@FUTUREPLANHELP.COM"
                     className="font-semibold"
                     style={{ color: ACCENT_TO }}
                   >
-                    Info@futurewesecure.com
+                    INFO@FUTUREPLANHELP.COM
                   </a>
                 </div>
               </div>

@@ -284,7 +284,13 @@ export default function ServicecardVariantA() {
             </a>
 
             <a
-              href="/contact"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                window.Calendly?.initPopupWidget?.({
+                  url: "https://calendly.com/jigneshcc2905/30min",
+                });
+              }}
               className="rounded-full inline-flex items-center gap-2 px-5 py-3 font-semibold border"
               style={{
                 border: "1px solid rgba(13,44,85,0.06)",

@@ -192,18 +192,18 @@ const HeroSection = ({ topOffset = 88 }) => {
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5" style={{ color: ACCENT_FROM }} aria-hidden="true" />
                 <a
-                  href="mailto:Info@futurewesecure.com"
+                  href="mailto:INFO@FUTUREPLANHELP.COM"
                   className="font-medium"
                   style={{ color: NAVY }}
                 >
-                  Info@futurewesecure.com
+                  INFO@FUTUREPLANHELP.COM
                 </a>
               </div>
 
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5" style={{ color: ACCENT_FROM }} aria-hidden="true" />
-                <a href="tel:+1516-917-0756" className="font-medium" style={{ color: NAVY }}>
-                  516-917-0756
+                <a href="tel:+1267-225-1909" className="font-medium" style={{ color: NAVY }}>
+                  267-225-1909
                 </a>
               </div>
             </div>

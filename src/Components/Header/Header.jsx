@@ -48,14 +48,14 @@ export default function Navbar() {
         <div className="hidden lg:flex flex-col items-end space-y-1">
           <div className="flex items-center">
             <Phone className="h-4 w-4 mr-2" />
-            <a href="tel:312-863-9331" className="text-white hover:text-[#E5B80B]">
-              312-863-9331
+            <a href="tel:267-225-1909" className="text-white hover:text-[#E5B80B]">
+              267-225-1909
             </a>
           </div>
           <div className="flex items-center">
             <Mail className="h-4 w-4 mr-2" />
-            <a href="mailto:info@vmfinancialsolutions.com" className="text-white hover:text-[#E5B80B]">
-              info@vmfinancialsolutions.com
+            <a href="mailto:INFO@FUTUREPLANHELP.COM" className="text-white hover:text-[#E5B80B]">
+              INFO@FUTUREPLANHELP.COM
             </a>
           </div>
         </div>
@@ -64,14 +64,14 @@ export default function Navbar() {
           <div className="flex flex-col space-y-3 mt-3">
             <div className="flex items-center">
               <Phone className="h-4 w-4 mr-2" />
-              <a href="tel:312-863-9331" className="text-white hover:text-[#E5B80B]">
-                312-863-9331
+              <a href="tel:267-225-1909" className="text-white hover:text-[#E5B80B]">
+                267-225-1909
               </a>
             </div>
             <div className="flex items-center">
               <Mail className="h-4 w-4 mr-2" />
-              <a href="mailto:info@vmfinancialsolutions.com" className="text-white hover:text-[#E5B80B]">
-                info@vmfinancialsolutions.com
+              <a href="mailto:INFO@FUTUREPLANHELP.COM" className="text-white hover:text-[#E5B80B]">
+                INFO@FUTUREPLANHELP.COM
               </a>
             </div>
           </div>

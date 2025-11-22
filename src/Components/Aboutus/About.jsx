@@ -190,7 +190,7 @@ const AboutUs = () => {
               {/* short bio + CTA row */}
               <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
                 <a
-                  href="/services"
+                  href="/service"
                   className="inline-flex items-center gap-3 rounded-xl px-4 py-3 font-semibold"
                   style={{
                     background: `linear-gradient(90deg, ${ACCENT_FROM}, ${ACCENT_TO})`,
@@ -202,7 +202,13 @@ const AboutUs = () => {
                 </a>
 
                 <a
-                  href="#contact"
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.Calendly?.initPopupWidget?.({
+                      url: "https://calendly.com/jigneshcc2905/30min",
+                    });
+                  }}
                   className="inline-flex items-center gap-2 rounded-xl px-4 py-3 border font-medium"
                   style={{
                     border: "1px solid rgba(13,44,85,0.06)",
@@ -334,7 +340,13 @@ const AboutUs = () => {
                   {/* social / contact quick links */}
                   <div className="flex gap-3 mt-3">
                     <a
-                      href="#contact"
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.Calendly?.initPopupWidget?.({
+                          url: "https://calendly.com/jigneshcc2905/30min",
+                        });
+                      }}
                       className="inline-flex items-center gap-2 rounded-lg px-4 py-2 font-semibold"
                       style={{
                         background: `linear-gradient(90deg, ${ACCENT_FROM}, ${ACCENT_TO})`,
