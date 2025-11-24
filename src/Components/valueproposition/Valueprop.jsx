@@ -1,26 +1,5 @@
-// src/components/ValuepropVariantA.jsx
 import React from "react";
-import decorativeLocalImg from "../../assets/Logo/logo.png"
-
-/**
- * ValuepropVariantA — brand-aligned overhaul
- *
- * - Color system matched to your logo:
- *   NAVY       : #0d2c55
- *   ACCENT_FROM: #0fb7d4 (teal-blue)
- *   ACCENT_TO  : #1ad1a3 (lime-teal)
- *   GOLD       : #f4b33d
- *
- * - Improvements:
- *   • Uses the services object's own `image` fields (keeps your provided images).
- *   • Alternating left/right layout with stronger visual rhythm.
- *   • Larger imagery, cleaner cards, gradient badges, CTA emphasis.
- *   • Decorative session-local illustration used in the header (path included).
- *
- * - Developer note:
- *   Decorative local asset path used below (uploaded during this session):
- *   "/mnt/data/A_digital_illustration_features_financial_advisors.png"
- */
+import decorativeLocalImg from "../../assets/Logo/logo.png";
 
 const NAVY = "#0d2c55";
 const ACCENT_FROM = "#0fb7d4";
@@ -65,20 +44,18 @@ const services = [
   },
 ];
 
-// Decorative local illustration (session upload)
-
 export default function ValuepropVariantA() {
   return (
     <section
-      className="py-16"
+      className="py-12 sm:py-16"
       aria-labelledby="value-heading"
       style={{ background: "linear-gradient(180deg,#ffffff 0%, #f7fcfb 45%, #ffffff 100%)" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-12">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-10">
           <div className="text-center lg:text-left max-w-2xl">
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center gap-3 mb-3 justify-center lg:justify-start">
               <span
                 style={{
                   width: 44,
@@ -105,7 +82,7 @@ export default function ValuepropVariantA() {
               </div>
             </div>
 
-            <p className="text-slate-600">
+            <p className="text-slate-600 text-sm sm:text-base">
               Clear guidance. Disciplined strategy. Practical next steps that keep your long-term goals intact.
             </p>
           </div>
@@ -115,23 +92,21 @@ export default function ValuepropVariantA() {
             <img
               src={decorativeLocalImg}
               alt="Illustration — financial planning"
-              style={{
-                width: 140,
-                height: 90,
-                objectFit: "cover",
-                borderRadius: 12,
-                boxShadow: "0 10px 30px rgba(13,44,85,0.06)",
-                border: "1px solid rgba(13,44,85,0.03)",
-              }}
+              className="w-36 h-24 object-cover rounded-lg shadow-sm border"
               loading="lazy"
             />
           </div>
         </div>
 
         {/* Showcase list — alternating layout */}
-        <div className="space-y-12">
+        <div className="space-y-10">
           {services.map((s, idx) => {
             const reverse = idx % 2 === 1;
+
+            // Responsive layout: small screens stack (image then content), medium+ alternate left/right.
+            const imageCol = `md:col-span-6 ${reverse ? "md:col-start-7 md:order-first" : "md:col-start-1"}`;
+            const contentCol = `md:col-span-6 ${reverse ? "md:col-start-1 md:order-last" : "md:col-start-7"}`;
+
             return (
               <article
                 key={idx}
@@ -139,17 +114,16 @@ export default function ValuepropVariantA() {
                 aria-labelledby={`value-${idx}-title`}
               >
                 {/* Image column */}
-                <div
-                  className={`md:col-span-6 rounded-2xl overflow-hidden shadow-lg relative transform transition duration-300 group hover:scale-[1.01]`}
-                  style={{ gridColumn: reverse ? "7 / span 6" : "1 / span 6" }}
-                >
+                <div className={`${imageCol} rounded-2xl overflow-hidden shadow-lg relative group` }>
                   <img
                     src={s.image}
                     alt={s.title}
-                    className="w-full h-72 md:h-full object-cover"
+                    className="w-full h-56 sm:h-72 md:h-64 lg:h-full object-cover"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+
                   <span
                     className="absolute left-4 top-4 rounded-full px-3 py-1 text-sm font-semibold text-white"
                     style={{ background: `linear-gradient(90deg, ${ACCENT_FROM}, ${ACCENT_TO})` }}
@@ -157,7 +131,6 @@ export default function ValuepropVariantA() {
                     {idx === 0 ? "Flagship" : "Featured"}
                   </span>
 
-                  {/* bottom badge */}
                   <div
                     className="absolute left-4 bottom-4 rounded-xl px-3 py-2 bg-white/95 text-sm font-semibold"
                     style={{ boxShadow: "0 8px 24px rgba(13,44,85,0.06)", color: NAVY }}
@@ -167,16 +140,13 @@ export default function ValuepropVariantA() {
                 </div>
 
                 {/* Content column */}
-                <div
-                  className="md:col-span-6 bg-white rounded-2xl p-6 md:p-10 flex flex-col justify-between border border-slate-100 shadow-sm"
-                  style={{ gridColumn: reverse ? "1 / span 6" : "7 / span 6" }}
-                >
+                <div className={`${contentCol} bg-white rounded-2xl p-6 md:p-10 flex flex-col justify-between border border-slate-100 shadow-sm` }>
                   <div>
-                    <h3 id={`value-${idx}-title`} className="text-2xl font-bold" style={{ color: NAVY }}>
+                    <h3 id={`value-${idx}-title`} className="text-xl sm:text-2xl font-bold" style={{ color: NAVY }}>
                       {s.title}
                     </h3>
 
-                    <div className="mt-4 text-slate-700">
+                    <div className="mt-4 text-slate-700 text-sm sm:text-base">
                       {s.description}
                     </div>
 
@@ -193,7 +163,7 @@ export default function ValuepropVariantA() {
                     </ul>
                   </div>
 
-                  <div className="mt-6 flex items-center gap-4">
+                  <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <a
                       href="#"
                       onClick={(e) => {
@@ -204,7 +174,7 @@ export default function ValuepropVariantA() {
                           window.open("https://calendly.com/jigneshcc2905/30min", "_blank", "noopener,noreferrer");
                         }
                       }}
-                      className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-white font-semibold"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg text-white font-semibold w-full sm:w-auto"
                       style={{
                         background: `linear-gradient(90deg, ${ACCENT_FROM}, ${ACCENT_TO})`,
                         boxShadow: "0 12px 36px rgba(15,183,212,0.12)",
@@ -219,7 +189,7 @@ export default function ValuepropVariantA() {
                     </a>
 
                     <a
-                      className="text-sm font-medium text-slate-700 underline"
+                      className="text-sm font-medium text-slate-700 underline text-center sm:text-left"
                       href="#learn"
                       onClick={(e) => {
                         e.preventDefault();

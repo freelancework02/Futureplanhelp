@@ -130,30 +130,7 @@ const AboutUs = () => {
                   </div>
                 </div>
 
-                <div
-                  className="flex items-center gap-3 transform transition-transform hover:-translate-y-1"
-                >
-                  <div
-                    style={{
-                      width: 64,
-                      height: 64,
-                      borderRadius: 14,
-                      display: "grid",
-                      placeItems: "center",
-                      background: GOLD,
-                      color: NAVY,
-                      fontWeight: 800,
-                      fontSize: 18,
-                    }}
-                    aria-hidden
-                  >
-                    26+
-                  </div>
-                  <div>
-                    <div style={{ fontWeight: 700, color: NAVY }}>Years Combined</div>
-                    <div style={{ color: "#6b8a94", fontSize: 13 }}>Advisor experience</div>
-                  </div>
-                </div>
+              
               </div>
 
               {/* quick features */}
@@ -216,7 +193,7 @@ const AboutUs = () => {
                     color: NAVY,
                   }}
                 >
-                  Book a review
+                  Book a Consultation
                 </a>
               </div>
 
@@ -307,8 +284,13 @@ const AboutUs = () => {
                             // @ts-ignore
                             e.currentTarget.src = placeholder;
                           }}
-                          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", OObjectPosition:"center", }}
-                          loading="lazy"
+ style={{
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    objectPosition: "top",
+    display: "block",
+  }}                          loading="lazy"
                         />
                       </div>
                     </div>
