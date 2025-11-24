@@ -192,7 +192,7 @@ export default function ProfessionalServices() {
                   </div>
                 </li>
 
-                <li style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                {/* <li style={{ display: "flex", gap: 10, alignItems: "center" }}>
                   <span
                     style={{
                       width: 36,
@@ -211,7 +211,7 @@ export default function ProfessionalServices() {
                     <div style={{ fontWeight: 700 }}>Years Combined</div>
                     <div style={{ fontSize: 13, color: "rgba(255,255,255,0.85)" }}>Advisor experience</div>
                   </div>
-                </li>
+                </li> */}
               </ul>
 
               <div style={{ marginTop: 20 }}>
