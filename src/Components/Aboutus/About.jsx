@@ -335,7 +335,7 @@ const AboutUs = () => {
                         color: NAVY,
                       }}
                     >
-                      Book a review
+                      Book a Consultation
                     </a>
 
                     <a
