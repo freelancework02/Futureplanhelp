@@ -73,7 +73,7 @@ const HeroSection = ({ topOffset = 88 }) => {
 
   const stats = [
     { k: "99%", v: "Client Satisfaction" },
-    { k: "26+ yrs", v: "Combined Expertise" },
+    // { k: "26+ yrs", v: "Combined Expertise" },
     { k: "1,200+", v: "Plans Reviewed" },
   ];
 
