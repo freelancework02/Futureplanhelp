@@ -2,11 +2,10 @@
 import React, { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { Mail, Phone, Calendar, ShieldCheck, MapPin } from "lucide-react";
-import emailjs from "emailjs-com";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Logo from "../../assets/Logo/logo.png"
-import Herosection from "../../assets/hero.png"
+import Logo from "../../assets/Logo/logo.png";
+import Herosection from "../../assets/hero.png";
 
 /**
  * ContactSection — brand refresh
@@ -33,8 +32,12 @@ const ContactSection = () => {
   const GOLD = "#f4b33d";
   const TEXT = "#082033";
 
+  // receiver email (who will get the contact form details)
+  const RECEIVER_EMAIL = "aaweshmanyar0425@gmail.com"; // or contactform@weplanfuture.com if you prefer
+
   // local image generated during this session (developer will map the path to a URL)
-  const faqImgPath = "/mnt/data/A_digital_illustration_features_financial_advisors.png";
+  const faqImgPath =
+    "/mnt/data/A_digital_illustration_features_financial_advisors.png";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -48,7 +51,8 @@ const ContactSection = () => {
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name || formData.name.trim().length < 2) {
-      newErrors.name = "Please enter your full name (at least 2 characters).";
+      newErrors.name =
+        "Please enter your full name (at least 2 characters).";
     }
     const email = String(formData.email || "").trim();
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
@@ -69,36 +73,47 @@ const ContactSection = () => {
   const handleChange = (e) =>
     setFormData((s) => ({ ...s, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  // ✅ UPDATED: use backend API instead of EmailJS
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    const templateParams = {
-      from_name: formData.name,
+
+    const payload = {
+      name: formData.name,
       email: formData.email,
-      message: formData.message,
+      msg: formData.message,
+      toEmail: RECEIVER_EMAIL, // send receiver email along with payload
     };
 
-    emailjs
-      .send(
-        "service_o49f57q",
-        "template_zueof2i",
-        templateParams,
-        "_NCXgVXdplNNFVAvR"
-      )
-      .then(
-        () => {
-          toast.success("🎉 Thanks! Your message has been sent.");
-          setFormData({ name: "", email: "", message: "", company: "" });
-          setErrors({});
-        },
-        (error) => {
-          console.error(error);
-          toast.error("❌ Could not send your message. Please try again.");
+    try {
+      const response = await fetch(
+        "https://futureplanhelp.com/api/contact/contact",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         }
-      )
-      .finally(() => setIsSubmitting(false));
+      );
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        toast.success("🎉 Thanks! Your message has been sent.");
+        setFormData({ name: "", email: "", message: "", company: "" });
+        setErrors({});
+      } else {
+        toast.error(
+          result.message || "❌ Could not send your message. Please try again."
+        );
+      }
+    } catch (error) {
+      console.error("API error:", error);
+      toast.error("❌ Server error. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -148,7 +163,8 @@ const ContactSection = () => {
           </h2>
 
           <p className="mt-3 text-white/80 max-w-2xl mx-auto">
-            Send a message, chat on WhatsApp, or book a quick call—whatever works best for you.
+            Send a message, chat on WhatsApp, or book a quick call—whatever
+            works best for you.
           </p>
         </div>
 
@@ -163,14 +179,22 @@ const ContactSection = () => {
               boxShadow: "0 20px 60px -30px rgba(13,44,85,0.28)",
             }}
           >
-            <h3 style={{ color: NAVY }} className="text-xl md:text-2xl font-bold mb-1 text-center">
+            <h3
+              style={{ color: NAVY }}
+              className="text-xl md:text-2xl font-bold mb-1 text-center"
+            >
               Contact Us
             </h3>
             <p className="text-center text-slate-600 mb-6">
               We'll get back to you quickly with clear next steps.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-5" noValidate aria-describedby="form-errors">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-5"
+              noValidate
+              aria-describedby="form-errors"
+            >
               {/* honeypot */}
               <input
                 type="text"
@@ -183,7 +207,10 @@ const ContactSection = () => {
               />
 
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1.5">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-slate-700 mb-1.5"
+                >
                   Full name
                 </label>
                 <input
@@ -197,22 +224,37 @@ const ContactSection = () => {
                   aria-describedby={errors.name ? "name-error" : undefined}
                   className="w-full p-3 rounded-lg border transition focus:outline-none"
                   style={{
-                    borderColor: errors.name ? "#fca5a5" : "rgba(13,44,85,0.08)",
-                    boxShadow: errors.name ? "0 6px 20px rgba(244,114,114,0.08)" : "none",
+                    borderColor: errors.name
+                      ? "#fca5a5"
+                      : "rgba(13,44,85,0.08)",
+                    boxShadow: errors.name
+                      ? "0 6px 20px rgba(244,114,114,0.08)"
+                      : "none",
                     outline: "none",
                   }}
-                  onFocus={(e) => (e.currentTarget.style.boxShadow = `0 6px 20px ${ACCENT_FROM}22`)}
-                  onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
+                  onFocus={(e) =>
+                    (e.currentTarget.style.boxShadow = `0 6px 20px ${ACCENT_FROM}22`)
+                  }
+                  onBlur={(e) =>
+                    (e.currentTarget.style.boxShadow = "none")
+                  }
                 />
                 {errors.name && (
-                  <p id="name-error" className="text-sm mt-1" style={{ color: "#dc2626" }}>
+                  <p
+                    id="name-error"
+                    className="text-sm mt-1"
+                    style={{ color: "#dc2626" }}
+                  >
                     {errors.name}
                   </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1.5">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-slate-700 mb-1.5"
+                >
                   Email
                 </label>
                 <input
@@ -226,21 +268,34 @@ const ContactSection = () => {
                   aria-describedby={errors.email ? "email-error" : undefined}
                   className="w-full p-3 rounded-lg border transition focus:outline-none"
                   style={{
-                    borderColor: errors.email ? "#fca5a5" : "rgba(13,44,85,0.08)",
+                    borderColor: errors.email
+                      ? "#fca5a5"
+                      : "rgba(13,44,85,0.08)",
                     outline: "none",
                   }}
-                  onFocus={(e) => (e.currentTarget.style.boxShadow = `0 6px 20px ${ACCENT_FROM}22`)}
-                  onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
+                  onFocus={(e) =>
+                    (e.currentTarget.style.boxShadow = `0 6px 20px ${ACCENT_FROM}22`)
+                  }
+                  onBlur={(e) =>
+                    (e.currentTarget.style.boxShadow = "none")
+                  }
                 />
                 {errors.email && (
-                  <p id="email-error" className="text-sm mt-1" style={{ color: "#dc2626" }}>
+                  <p
+                    id="email-error"
+                    className="text-sm mt-1"
+                    style={{ color: "#dc2626" }}
+                  >
                     {errors.email}
                   </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-1.5">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-slate-700 mb-1.5"
+                >
                   Message
                 </label>
                 <textarea
@@ -250,17 +305,29 @@ const ContactSection = () => {
                   value={formData.message}
                   onChange={handleChange}
                   aria-invalid={!!errors.message}
-                  aria-describedby={errors.message ? "message-error" : undefined}
+                  aria-describedby={
+                    errors.message ? "message-error" : undefined
+                  }
                   className="w-full p-3 rounded-lg border min-h-[140px] transition focus:outline-none resize-y"
                   style={{
-                    borderColor: errors.message ? "#fca5a5" : "rgba(13,44,85,0.08)",
+                    borderColor: errors.message
+                      ? "#fca5a5"
+                      : "rgba(13,44,85,0.08)",
                     outline: "none",
                   }}
-                  onFocus={(e) => (e.currentTarget.style.boxShadow = `0 6px 20px ${ACCENT_FROM}22`)}
-                  onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
+                  onFocus={(e) =>
+                    (e.currentTarget.style.boxShadow = `0 6px 20px ${ACCENT_FROM}22`)
+                  }
+                  onBlur={(e) =>
+                    (e.currentTarget.style.boxShadow = "none")
+                  }
                 />
                 {errors.message && (
-                  <p id="message-error" className="text-sm mt-1" style={{ color: "#dc2626" }}>
+                  <p
+                    id="message-error"
+                    className="text-sm mt-1"
+                    style={{ color: "#dc2626" }}
+                  >
                     {errors.message}
                   </p>
                 )}
@@ -272,9 +339,13 @@ const ContactSection = () => {
                 aria-busy={isSubmitting}
                 className="w-full py-3 rounded-xl font-semibold flex items-center justify-center gap-3 transition-transform"
                 style={{
-                  background: isSubmitting ? "linear-gradient(90deg,#9adbd6,#bff0db)" : `linear-gradient(90deg, ${ACCENT_FROM}, ${ACCENT_TO})`,
+                  background: isSubmitting
+                    ? "linear-gradient(90deg,#9adbd6,#bff0db)"
+                    : `linear-gradient(90deg, ${ACCENT_FROM}, ${ACCENT_TO})`,
                   color: NAVY,
-                  boxShadow: isSubmitting ? "none" : "0 12px 36px rgba(15,183,212,0.14)",
+                  boxShadow: isSubmitting
+                    ? "none"
+                    : "0 12px 36px rgba(15,183,212,0.14)",
                 }}
               >
                 {isSubmitting ? (
@@ -287,7 +358,10 @@ const ContactSection = () => {
                 )}
               </button>
 
-              <p id="form-errors" className="text-xs text-slate-500 text-center mt-2">
+              <p
+                id="form-errors"
+                className="text-xs text-slate-500 text-center mt-2"
+              >
                 We respect your privacy. We’ll never share your details.
               </p>
             </form>
@@ -299,12 +373,15 @@ const ContactSection = () => {
             <div
               className="rounded-2xl p-6"
               style={{
-                background: `linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))`,
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))",
                 border: "1px solid rgba(255,255,255,0.06)",
                 backdropFilter: "blur(6px)",
               }}
             >
-              <p className="text-lg font-semibold mb-4 text-white">Prefer a quick conversation?</p>
+              <p className="text-lg font-semibold mb-4 text-white">
+                Prefer a quick conversation?
+              </p>
 
               <div className="grid sm:grid-cols-2 gap-3 mb-4">
                 <a
@@ -388,7 +465,12 @@ const ContactSection = () => {
                 <img
                   src={Logo}
                   alt="brand"
-                  style={{ width: 54, height: 54, objectFit: "contain", borderRadius: 10 }}
+                  style={{
+                    width: 54,
+                    height: 54,
+                    objectFit: "contain",
+                    borderRadius: 10,
+                  }}
                 />
               </div>
 
@@ -396,10 +478,8 @@ const ContactSection = () => {
                 <h4 className="text-lg font-bold" style={{ color: "white" }}>
                   Future Plan Help
                 </h4>
-                <p className="text-white/90 mb-3">📞 267-225-1909</p>
+                <p className="text-white/90">📞 267-225-1909</p>
                 <p className="text-white/90">📧 INFO@FUTUREPLANHELP.COM</p>
-
-               
               </div>
             </div>
 
@@ -422,8 +502,14 @@ const ContactSection = () => {
               </div>
 
               <div className="p-4">
-                <div style={{ fontWeight: 700, color: NAVY }}>Trusted by 1,200+ families</div>
-                <div style={{ color: "#64748b", marginTop: 4 }}>Real guidance. Real clarity. Real results.</div>
+                <div style={{ fontWeight: 700, color: NAVY }}>
+                  Trusted by 1,200+ families
+                </div>
+                <div
+                  style={{ color: "#64748b", marginTop: 4 }}
+                >
+                  Real guidance. Real clarity. Real results.
+                </div>
               </div>
             </div>
           </aside>

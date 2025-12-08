@@ -13,7 +13,7 @@ export default function EventsGalleryVariantA() {
   const [visibleIds, setVisibleIds] = useState(new Set());
   const observerRef = useRef(null);
 
-  const API_BASE = "http://localhost:3000/api/galleries";
+  const API_BASE = "https://futureplanhelp.com/api/galleries";
 
   // Fetch Data
   useEffect(() => {

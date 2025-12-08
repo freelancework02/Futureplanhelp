@@ -8,7 +8,7 @@ const ACCENT_FROM = "#0fb7d4";
 const ACCENT_TO = "#1ad1a3";
 const FALLBACK_IMG = "/mnt/data/A_digital_illustration_features_financial_advisors.png";
 
-const API_BASE = "http://localhost:3000/api/blogs";
+const API_BASE = "https://futureplanhelp.com/api/blogs";
 
 export default function BlogVariantB() {
   const [blogs, setBlogs] = useState([]);

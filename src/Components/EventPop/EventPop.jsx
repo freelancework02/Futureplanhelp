@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './EventPop.css';
 
-const DEFAULT_API = 'https://futurewesecure.com/api';
+const DEFAULT_API = 'https://futureplanhelp.com/api';
 
 const EventPop = ({ apiBase = DEFAULT_API }) => {
   const [isOpen, setIsOpen] = useState(true);

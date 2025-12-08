@@ -15,7 +15,7 @@ const ACCENT_FROM = "#0fb7d4";
 const ACCENT_TO = "#1ad1a3";
 const GOLD = "#f4b33d";
 const GRADIENT = `linear-gradient(90deg, ${ACCENT_FROM}, ${ACCENT_TO})`;
-const API_BASE = "http://localhost:3000/api/events";
+const API_BASE = "https://futureplanhelp.com/api/events";
 const FALLBACK_IMG = "/mnt/data/A_digital_illustration_features_financial_advisors.png";
 
 export default function EventsDetailVariantA() {
