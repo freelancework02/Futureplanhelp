@@ -6,6 +6,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../../assets/Logo/logo.png";
 import Herosection from "../../assets/hero.png";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 
 /**
  * ContactSection — brand refresh
@@ -33,7 +36,11 @@ const ContactSection = () => {
   const TEXT = "#082033";
 
   // receiver email (who will get the contact form details)
-  const RECEIVER_EMAIL = "aaweshmanyar0425@gmail.com"; // or contactform@weplanfuture.com if you prefer
+const RECEIVER_EMAILS = [
+  "aaweshmanyar0425@gmail.com",
+  "INFO@FUTUREPLANHELP.COM",
+  "freelance.aaweshmanyar@gmail.com"
+];
 
   // local image generated during this session (developer will map the path to a URL)
   const faqImgPath =
@@ -42,6 +49,8 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+      phone: "",
+
     message: "",
     company: "", // honeypot
   });
@@ -59,6 +68,10 @@ const ContactSection = () => {
     if (!emailOk) {
       newErrors.email = "Please enter a valid email address.";
     }
+    if (!formData.phone || formData.phone.replace(/\D/g, "").length < 10) {
+  newErrors.phone = "Please enter a valid phone number.";
+}
+
     if (!formData.message || formData.message.trim().length < 12) {
       newErrors.message = "Tell us a bit more (at least 12 characters).";
     }
@@ -83,8 +96,8 @@ const ContactSection = () => {
     const payload = {
       name: formData.name,
       email: formData.email,
+      phone: formData.phone,   // 👈 added
       msg: formData.message,
-      toEmail: RECEIVER_EMAIL, // send receiver email along with payload
     };
 
     try {
@@ -290,6 +303,45 @@ const ContactSection = () => {
                   </p>
                 )}
               </div>
+
+              {/* PHONE */}
+<div>
+  <label
+    htmlFor="phone"
+    className="block text-sm font-semibold text-slate-800 mb-1.5"
+  >
+    Phone Number
+  </label>
+
+  <PhoneInput
+    country={"in"}                 // default INDIA
+    onlyCountries={["in", "us", "ca"]}
+    preferredCountries={["in", "us", "ca"]}
+    value={formData.phone}
+    onChange={(phone) =>
+      setFormData((s) => ({ ...s, phone }))
+    }
+    inputProps={{
+      name: "phone",
+      required: true,
+    }}
+    inputStyle={{
+      width: "100%",
+      height: "48px",
+      borderRadius: "0.5rem",
+      borderColor: errors.phone ? "#fca5a5" : "#cbd5e1",
+    }}
+    buttonStyle={{
+      borderRadius: "0.5rem 0 0 0.5rem",
+    }}
+    containerClass="react-tel-input"
+  />
+
+  {errors.phone && (
+    <p className="text-red-600 text-sm mt-1">{errors.phone}</p>
+  )}
+</div>
+
 
               <div>
                 <label

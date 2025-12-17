@@ -53,6 +53,7 @@ export default function EventsDetailVariantA() {
         title: latest.title,
         date: latest.event_date,
         description: latest.description,
+        event_timezone: latest.event_timezone, // 👈 THIS LINE
         host: latest.hosted_by,
         meetingLink: latest.link,
         thumbnailUrl: latest.cover_image_id
@@ -81,19 +82,23 @@ export default function EventsDetailVariantA() {
   const hasGallery = images.length > 0;
 
   const [topOffset, setTopOffset] = useState(null);
-  function formatDate(input) {
-    if (!input) return "";
-    const d = new Date(input);
-    if (isNaN(d.getTime())) return input;
-    return d.toLocaleString(undefined, {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  }
+ 
+  function formatDate(input, timeZone) {
+  if (!input) return "";
+  const d = new Date(input);
+  if (isNaN(d.getTime())) return input;
+
+  return d.toLocaleString("en-US", {
+    timeZone: timeZone || "UTC",
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
 
   function isHtml(s) {
     return typeof s === "string" && /<\/?[a-z][\s\S]*>/i.test(s);
@@ -151,10 +156,18 @@ export default function EventsDetailVariantA() {
           <article className="rounded-2xl bg-white/98 px-4 py-4 shadow-[0_18px_45px_rgba(3,7,18,0.12)]">
             <div className="flex items-start justify-between gap-4">
               <div className="min-w-0">
-                <div className="inline-flex items-center gap-2 text-xs font-semibold rounded-full px-2 py-0.5 bg-black/45 text-white">
-                  <FiCalendar />
-                  <span>{formatDate(model.date)}</span>
-                </div>
+               <div className="inline-flex items-center gap-2 rounded-full bg-black/45 px-3 py-1 text-xs text-white">
+  <FiCalendar className="opacity-80" />
+
+  <span className="font-semibold">
+    {formatDate(model.date)}
+  </span>
+
+  <span className="text-white">
+    {model.event_timezone}
+  </span>
+</div>
+
 
                 <h1 id="event-title" className="mt-2 text-sm md:text-lg font-extrabold text-white truncate">
                   {model.title}
@@ -230,10 +243,18 @@ export default function EventsDetailVariantA() {
             <div className="rounded-2xl bg-white p-4 border shadow-sm sticky top-[90px]">
               <h4 className="font-semibold mb-3">Event details</h4>
               <ul className="text-sm">
-                <li className="flex items-center gap-3 mb-2">
-                  <FiCalendar />
-                  <span>{formatDate(model.date)}</span>
-                </li>
+                <li className="flex items-center gap-2 mb-2 text-sm text-slate-700">
+  <FiCalendar className="text-slate-500" />
+
+  <span className="font-medium">
+    {formatDate(model.date)}
+  </span>
+
+  <span className="text-xs text-slate-500">
+    ({model.event_timezone})
+  </span>
+</li>
+
                 {model.host && (
                   <li className="flex items-center gap-3">
                     <FiUser />
